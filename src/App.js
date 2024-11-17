@@ -4,23 +4,23 @@ import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-route
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Home from './components/Home';
+import Profile from './components/Profile';
+import History from './components/History';
 import { Spin } from 'antd';
 
 const App = () => {
-    const [loading, setLoading] = useState(true);
+    const [initialized, setInitialized] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('authToken');
-        if (token) {
-            navigate('/');
-        } else {
+        if (!token) {
             navigate('/signup');
         }
-        setLoading(false);
-    }, [navigate]);
+        setInitialized(true);
+    }, []);
 
-    if (loading) {
+    if (!initialized) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
                 <Spin size="large" />
@@ -33,6 +33,8 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/history" element={<History />} />
         </Routes>
     );
 };
