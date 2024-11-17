@@ -1,13 +1,16 @@
+// src/components/SignIn.js
 import React, { useState } from 'react';
 import { Form, Input, Button, Row, Col, Typography, Alert } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { login } from '../api/login';
+import { useNavigate } from 'react-router-dom';
 
 const { Title } = Typography;
 
 const SignIn = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const onFinish = async (values) => {
         setLoading(true);
@@ -18,7 +21,9 @@ const SignIn = () => {
             };
             const response = await login(data);
             console.log('Success:', response);
+            localStorage.setItem('authToken', response.token);
             setError(null);
+            navigate('/');
         } catch (err) {
             setError(err.message);
         } finally {

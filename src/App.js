@@ -1,29 +1,46 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// src/App.js
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-import {Form, Input} from "antd";
-import {MailOutlined} from "@ant-design/icons";
+import Home from './components/Home';
+import { Spin } from 'antd';
 
-// <Form.Item
-//     label="Email"
-//     name="email"
-//     rules={[
-//         { required: true, message: 'Please input a valid email!' },
-//         { pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, message: 'Email must match pattern *@*.*' }
-//     ]}
-// >
-//     <Input prefix={<MailOutlined />} placeholder="Email" onChange={handleChange} />
-// </Form.Item>
-function App() {
+const App = () => {
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            navigate('/');
+        } else {
+            navigate('/signup');
+        }
+        setLoading(false);
+    }, [navigate]);
+
+    if (loading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <Spin size="large" />
+            </div>
+        );
+    }
+
     return (
-        <Router>
-            <Routes>
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/signin" element={<SignIn />} />
-            </Routes>
-        </Router>
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={<SignIn />} />
+        </Routes>
     );
-}
+};
 
-export default App;
+const AppWrapper = () => (
+    <Router>
+        <App />
+    </Router>
+);
+
+export default AppWrapper;

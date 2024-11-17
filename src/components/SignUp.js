@@ -1,7 +1,8 @@
+// src/components/SignUp.js
 import React, { useState } from 'react';
 import { Form, Input, Button, Row, Col, Typography, Alert } from 'antd';
 import { UserOutlined, MailOutlined, PhoneOutlined, LockOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { register } from '../api/register';
 
 const { Title, Text } = Typography;
@@ -9,6 +10,7 @@ const { Title, Text } = Typography;
 const SignUp = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const onFinish = async (values) => {
         setLoading(true);
@@ -20,7 +22,9 @@ const SignUp = () => {
             };
             const response = await register(data);
             console.log('Success:', response);
+            localStorage.setItem('authToken', response.token);
             setError(null);
+            navigate('/');
         } catch (err) {
             setError(err.message);
         } finally {
