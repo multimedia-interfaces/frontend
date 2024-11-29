@@ -7,16 +7,17 @@ import Home from './components/Home';
 import Profile from './components/Profile';
 import History from './components/History';
 import { Spin } from 'antd';
+import Dictaphone from "./components/Dictaphone";
 
 const App = () => {
     const [initialized, setInitialized] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-            navigate('/signup');
-        }
+        // const token = localStorage.getItem('authToken');
+        // if (!token) {
+        //     navigate('/signup');
+        // }
         setInitialized(true);
     }, []);
 
@@ -31,6 +32,7 @@ const App = () => {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/micro" element={<Dictaphone />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/profile" element={<Profile />} />
