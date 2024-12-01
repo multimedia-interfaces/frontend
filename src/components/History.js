@@ -4,6 +4,7 @@ import { Typography, Row, Col, Button, Table, message } from 'antd';
 import { Link } from 'react-router-dom';
 import Header from "./Header";
 import { fetchHistory } from '../api/history';
+import moment from 'moment';
 
 const { Title } = Typography;
 const columns = [
@@ -21,11 +22,13 @@ const columns = [
         title: 'Start date and time',
         dataIndex: 'createdAt',
         key: 'createdAt',
+        render: (text) => moment(text).format('YYYY-MM-DD HH:mm'),
     },
     {
         title: 'End date and time',
         dataIndex: 'finalizedAt',
         key: 'finalizedAt',
+        render: (text) => moment(text).format('YYYY-MM-DD HH:mm'),
     },
     {
         title: 'Route',

@@ -25,6 +25,7 @@ const Home = () => {
                 message.error('Failed to fetch initializations data');
             }
         };
+
         getCallTaxiId();
     }, []);
 
@@ -73,15 +74,13 @@ const Home = () => {
             };
             await setUpdate(callTaxiId, classData);
 
-            if (values.services) {
-                const servicesData = {
-                    update: {
-                        field: "services",
-                        value: values.services
-                    },
-                };
-                await setUpdate(callTaxiId, servicesData);
-            }
+            const servicesData = {
+                update: {
+                    field: "services",
+                    value: values.services ?? []
+                },
+            };
+            await setUpdate(callTaxiId, servicesData);
 
             await postTaxiCall(callTaxiId);
             setIsOnRoad(true);
@@ -103,10 +102,9 @@ const Home = () => {
         :
         isOnRoad
             ?
-            <Card title="Taxi Video" style={{ width: 300 }}>
+            <Card style={{ width: 600 }}>
                 <video autoPlay loop muted style={{ width: '100%' }}>
                     <source src={taxiVideo} type="video/mp4" />
-                    Ваш браузер не підтримує відео.
                 </video>
             </Card>
             : <>
@@ -140,7 +138,7 @@ const Home = () => {
                         label="Car Type"
                         rules={[{ required: true, message: 'Please select car type!' }]}>
                         <Select placeholder="Select Car Type">
-                            <Option value="economy">Economy</Option>
+                            <Option value="econom">Economy</Option>
                             <Option value="standard">Standard</Option>
                             <Option value="business">Business</Option>
                         </Select>
@@ -148,9 +146,9 @@ const Home = () => {
 
                     <Form.Item name="services">
                         <Checkbox.Group>
-                            <Checkbox value="pet">Traveling with pet</Checkbox>
-                            <Checkbox value="luggage">Large luggage</Checkbox>
-                            <Checkbox value="childSeat">Child seat</Checkbox>
+                            <Checkbox value="animal">Traveling with pet</Checkbox>
+                            <Checkbox value="big-trunk">Large luggage</Checkbox>
+                            <Checkbox value="child-seat">Child seat</Checkbox>
                         </Checkbox.Group>
                     </Form.Item>
 
