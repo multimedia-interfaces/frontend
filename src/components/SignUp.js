@@ -1,7 +1,7 @@
 // src/components/SignUp.js
 import React, { useState } from 'react';
 import { Form, Input, Button, Row, Col, Typography, Alert } from 'antd';
-import { UserOutlined, MailOutlined, PhoneOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, PhoneOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { register } from '../api/register';
 

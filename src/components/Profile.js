@@ -61,20 +61,22 @@ const Profile = () => {
                         >
                             <Input placeholder="Phone" />
                         </Form.Item>
-
+{/*
                         <Form.Item
                             label="Email"
                             name="email"
                             rules={[{ required: true, message: 'Please input your email!' }, { type: 'email', message: 'Please enter a valid email!' }]}
                         >
                             <Input placeholder="Email" />
-                        </Form.Item>
+                        </Form.Item> 
 
                         <Form.Item>
                             <Button type="primary" htmlType="submit" block>
                                 Update Profile
                             </Button>
                         </Form.Item>
+                        */}
+                        
                     </Form>
                     <div style={{ marginTop: '20px', textAlign: 'center' }}>
                         <Link to="/">
