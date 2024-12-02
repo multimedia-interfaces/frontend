@@ -12,40 +12,47 @@ const columns = [
         title: 'Passenger Name',
         dataIndex: ['passenger', 'name'],
         key: 'name',
+        width: '15%',
     },
     {
         title: 'Passenger Phone Number',
         dataIndex: ['passenger', 'phone'],
         key: 'phone',
+        width: '15%',
     },
     {
         title: 'Start date and time',
         dataIndex: 'createdAt',
         key: 'createdAt',
         render: (text) => moment(text).format('YYYY-MM-DD HH:mm'),
+        width: '15%',
     },
     {
         title: 'End date and time',
         dataIndex: 'finalizedAt',
         key: 'finalizedAt',
         render: (text) => moment(text).format('YYYY-MM-DD HH:mm'),
+        width: '15%',
     },
     {
         title: 'Route',
         dataIndex: 'route',
         key: 'route',
         render: (route) => route.join(', '),
+        width: '20%',
     },
     {
         title: 'Car Type',
         dataIndex: 'class',
         key: 'class',
+        width: '10%',
     },
     {
         title: 'Additional services',
         dataIndex: 'services',
         key: 'services',
         render: (services) => services.join(', '),
+        width: '10%',
     },
 ];
 
@@ -71,8 +78,8 @@ const History = () => {
         <>
             <Header />
             <Row justify="center" style={{ padding: '20px' }}>
-                <Col xs={24} sm={20} md={16} lg={12} xl={8}>
-                    <Title level={2} style={{ textAlign: 'center' }}>History Page</Title>
+                <Col xs={48} sm={40} md={32} lg={24} xl={16}>
+                    <Title level={2} style={{textAlign: 'center'}}>History Page</Title>
 
                     <Table
                         columns={columns}
@@ -85,8 +92,7 @@ const History = () => {
                         }}
                         rowKey="id"
                     />
-
-                    <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                    <div style={{marginTop: '20px', textAlign: 'center'}}>
                         <Link to="/">
                             <Button type="link">Go to Home</Button>
                         </Link>

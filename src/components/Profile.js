@@ -1,29 +1,18 @@
 // src/components/Profile.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Typography, Form, Input, Button, Row, Col, message } from 'antd';
 import { Link } from 'react-router-dom';
-import { fetchProfile, updateProfile } from '../api/profile';
+import { updateProfile } from '../api/profile';
 import Header from "./Header";
 
 const { Title } = Typography;
 
-const Profile = () => {
+const Profile = ({profile}) => {
     const [form] = Form.useForm();
-    const [profile, setProfile] = useState({ name: '', phone: '', email: '' });
 
     useEffect(() => {
-        const getProfile = async () => {
-            try {
-                const data = await fetchProfile();
-                setProfile(data);
-                form.setFieldsValue(data);
-            } catch (error) {
-                message.error('Failed to fetch profile data');
-            }
-        };
-        getProfile();
-    }, []);
-
+        form.setFieldsValue(profile)
+    }, [form, profile]);
     const onFinish = async (values) => {
         try {
             await updateProfile(values);

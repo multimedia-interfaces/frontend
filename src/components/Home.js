@@ -10,7 +10,7 @@ import taxiVideo from '../taxi_video.mp4';
 const { Title } = Typography;
 const { Option } = Select;
 
-const Home = () => {
+const Home = ({ profile }) => {
     const [callTaxiId, setCallTaxiId] = useState(null);
     const [loading, setLoading] = useState(false);
     const [isOnRoad, setIsOnRoad] = useState(false);
@@ -28,6 +28,10 @@ const Home = () => {
 
         getCallTaxiId();
     }, []);
+
+    if (!profile.phone) {
+        return <div>Loading...</div>;
+    }
 
     const onFinish = async (values) => {
         setLoading(true);
@@ -84,6 +88,7 @@ const Home = () => {
 
             await postTaxiCall(callTaxiId);
             setIsOnRoad(true);
+            setTimeout(() => setIsOnRoad(false), 4000);
         } catch (err) {
             setError(err.message);
         } finally {
@@ -112,7 +117,11 @@ const Home = () => {
                 {error && <Alert message={error} type="error" showIcon style={{ marginBottom: '20px' }} />}
                 <Form
                     name="orderTaxi"
-                    initialValues={{ remember: true }}
+                    initialValues={{
+                        remember: true,
+                        passengerName: profile.name,
+                        passengerPhone: profile.phone
+                    }}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     layout="vertical"
