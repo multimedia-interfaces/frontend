@@ -6,30 +6,19 @@ import SignIn from './components/SignIn';
 import Home from './components/Home';
 import Profile from './components/Profile';
 import History from './components/History';
-import {message, Spin} from 'antd';
+import { Spin } from 'antd';
 import Dictaphone from "./components/Dictaphone";
-import {fetchProfile} from "./api/profile";
+import Echo from './components/Echo';
 
 const App = () => {
     const [initialized, setInitialized] = useState(false);
     const navigate = useNavigate();
-    const [profile, setProfile] = useState({ name: '', phone: '', email: '' });
 
     useEffect(() => {
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-            navigate('/signup');
-        } else {
-            const getProfile = async () => {
-                try {
-                    const data = await fetchProfile();
-                    setProfile(data);
-                } catch (error) {
-                    message.error('Failed to fetch profile data');
-                }
-            };
-            getProfile();
-        }
+        // const token = localStorage.getItem('authToken');
+        // if (!token) {
+        //     navigate('/signup');
+        // }
         setInitialized(true);
     }, []);
 
@@ -43,11 +32,12 @@ const App = () => {
 
     return (
         <Routes>
-            <Route path="/" element={<Home profile={profile} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/micro" element={<Dictaphone />} />
+            <Route path="/echo" element={<Echo />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/profile" element={<Profile profile={profile} />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/history" element={<History />} />
         </Routes>
     );
