@@ -4,13 +4,13 @@ import { useSpeech } from "react-text-to-speech";
 
 export const TextToSpeechStatus = {
   PREPARING: "PREPARING",
-  STARTING: "STARTING",
+  READY: "READY",
   IN_PROGRESS: "IN_PROGRESS",
   FINISHED: "FINISHED",
 };
 
 /**
- * @param {string} text Text to pronounce 
+ * @param {string} text Text to pronounce
  * @param {boolean} play Whether text should be pronounced or not
  */
 export default function useTextToSpeech(text, play) {
@@ -32,7 +32,7 @@ export default function useTextToSpeech(text, play) {
   useEffect(() => {
     if (status === TextToSpeechStatus.PREPARING) {
       if (isVoiceReady) {
-        setStatus(TextToSpeechStatus.STARTING);
+        setStatus(TextToSpeechStatus.READY);
       }
     }
   }, [status, isVoiceReady]);
@@ -45,17 +45,17 @@ export default function useTextToSpeech(text, play) {
 
   useEffect(() => {
     if (speechStatus === "stopped") {
-      if (status === TextToSpeechStatus.STARTING && play) {
+      if (status === TextToSpeechStatus.READY && play) {
         start();
       } else if (status === TextToSpeechStatus.IN_PROGRESS) {
         setStatus(TextToSpeechStatus.FINISHED);
       }
     } else if (speechStatus === "started") {
-      if (status === TextToSpeechStatus.STARTING) {
+      if (status === TextToSpeechStatus.READY) {
         setStatus(TextToSpeechStatus.IN_PROGRESS);
       }
     }
   }, [status, play, speechStatus, start]);
 
-  return { status };
+  return [status];
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useReducer } from "react";
-import useSpeechToText from "../hooks/use-speech-to-text";
+import useSpeechToCommand, { SpeechToCommandStatus } from "../hooks/use-speech-to-command";
 import useTextToSpeech, { TextToSpeechStatus } from "../hooks/use-text-to-speech";
 
 class Action {}
@@ -64,11 +64,13 @@ function reducer(state, action) {
 const Echo = () => {
   const [state, dispatch] = useReducer(reducer, new WaitingForInputState());
   
+  const commands = useMemo(() => (['simple', 'with :a :b']), [])
+
   const isSpeaking = state instanceof SpeakingState;
-  const { status: ttsStatus } = useTextToSpeech(isSpeaking ? state.text : '', isSpeaking);
+  const [ ttsStatus ] = useTextToSpeech(isSpeaking ? `${state.text.command} ${state.text.parameters.join(' ')}` : '', isSpeaking);
 
   const isListeningState = state instanceof ListeningState;
-  const { text } = useSpeechToText(isListeningState);
+  const [stcStatus, command] = useSpeechToCommand(commands, isListeningState);
 
   useEffect(() => {
     if(isSpeaking && ttsStatus === TextToSpeechStatus.FINISHED) {
@@ -77,10 +79,16 @@ const Echo = () => {
   }, [isSpeaking, ttsStatus]);
 
   useEffect(() => {
-    if(isListeningState && typeof text === 'string') {
-      dispatch(new TranscriptAction(text))
+    if(isListeningState) {
+      if(stcStatus === SpeechToCommandStatus.NOT_RECOGNIZED) {
+        dispatch(new TranscriptAction({command: 'not recognized', parameters: []}))
+      } else if(typeof command === 'object' && command !== null) {
+        dispatch(new TranscriptAction(command))
+      }
     }
-  }, [isListeningState, text]);
+
+    
+  }, [isListeningState, command, stcStatus]);
 
   const onClick = useMemo(() => () => dispatch(new InputAction()), [dispatch]);
 
