@@ -2,12 +2,11 @@ import AbstractVoiceAssistantStep from "./step";
 
 export default class AbstractVoiceAssistantCommandStep extends AbstractVoiceAssistantStep {
   constructor(
-    name,
     questionFormulation,
     commandNotRecognizedErrorFormulation,
     commands
   ) {
-    super(name);
+    super();
 
     this.questionFormulation = questionFormulation;
     this.commandNotRecognizedErrorFormulation =
@@ -22,8 +21,6 @@ export default class AbstractVoiceAssistantCommandStep extends AbstractVoiceAssi
   }
 
   validateParameters(command, parameters) {
-    throw new Error(
-      `Abstract method ${this.constructor.name}.${this.validateParameters.name} not implemented`
-    );
+    return;
   }
 }

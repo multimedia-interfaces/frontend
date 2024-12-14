@@ -1,6 +1,6 @@
 export default class AbstractVoiceAssistantStep {
-  constructor(name) {
-    this.name = name;
+  constructor() {
+    this.id = crypto.randomUUID();
 
     if (this.constructor === AbstractVoiceAssistantStep) {
       throw new Error(

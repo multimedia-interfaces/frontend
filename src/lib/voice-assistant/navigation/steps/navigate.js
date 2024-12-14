@@ -38,15 +38,10 @@ const CommandToPageMap = Object.fromEntries(
 export default class NavigationVoiceAssistantNavigateStep extends AbstractVoiceAssistantCommandStep {
   constructor() {
     super(
-      "Navigate",
       "How can I help you?",
       "Sorry, but I didn't understand you. Please, repeat",
       Object.values(Commands)
     );
-  }
-
-  validateParameters() {
-    return;
   }
 
   transition({ navigate }, { command }) {

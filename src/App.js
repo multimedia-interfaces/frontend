@@ -15,6 +15,7 @@ import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import EchoDemo from "./components/demos/EchoDemo";
 import NavigationDemo from "./components/demos/NavigationDemo";
+import OrderDemo from "./components/demos/OrderDemo";
 
 const App = () => {
   const [initialized, setInitialized] = useState(false);
@@ -49,6 +50,7 @@ const App = () => {
       <Route path="/micro" element={<Dictaphone />} />
       <Route path="/demo/echo" element={<EchoDemo />} />
       <Route path="/demo/navigation" element={<NavigationDemo />} />
+      <Route path="/demo/order" element={<OrderDemo />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/profile" element={<Profile />} />

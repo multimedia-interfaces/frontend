@@ -107,7 +107,6 @@ const EchoDemo = () => {
       return <div>Listening</div>;
     }
     default: {
-      console.dir({ state });
       throw new Error(`Unknown state ${state.constructor.name}`);
     }
   }

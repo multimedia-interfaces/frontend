@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AbstractVoiceAssistantCommandStep from "../../lib/voice-assistant/abstract/steps/command";
 import VoiceAssistantCommandStep from "./steps/command";
+import VoiceAssistantStatus from "./constants/status";
 
 const VoiceAssistant = ({ run, assistent, context, onStatusChange }) => {
   const [step, setStep] = useState(assistent.initialize());
 
-  if (step === null) {
-    return null;
-  }
+  useEffect(() => {
+    if (step === null) {
+      onStatusChange(VoiceAssistantStatus.IDLE);
+    }
+  }, [step, onStatusChange]);
 
   switch (true) {
     case step === null:
@@ -16,6 +19,7 @@ const VoiceAssistant = ({ run, assistent, context, onStatusChange }) => {
     case step instanceof AbstractVoiceAssistantCommandStep:
       return (
         <VoiceAssistantCommandStep
+          key={step.id}
           run={run}
           step={step}
           onTransition={setStep}
