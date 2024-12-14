@@ -1,52 +1,66 @@
 // src/App.js
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
-import SignUp from './components/SignUp';
-import SignIn from './components/SignIn';
-import Home from './components/Home';
-import Profile from './components/Profile';
-import History from './components/History';
-import { Spin } from 'antd';
+import { Spin } from "antd";
+import React, { useEffect, useState } from "react";
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import Dictaphone from "./components/Dictaphone";
-import Echo from './components/Echo';
+import History from "./components/History";
+import Home from "./components/Home";
+import Profile from "./components/Profile";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+import EchoDemo from "./components/demos/EchoDemo";
+import NavigationDemo from "./components/demos/NavigationDemo";
 
 const App = () => {
-    const [initialized, setInitialized] = useState(false);
-    const navigate = useNavigate();
+  const [initialized, setInitialized] = useState(false);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        // const token = localStorage.getItem('authToken');
-        // if (!token) {
-        //     navigate('/signup');
-        // }
-        setInitialized(true);
-    }, []);
+  useEffect(() => {
+    // const token = localStorage.getItem('authToken');
+    // if (!token) {
+    //     navigate('/signup');
+    // }
+    setInitialized(true);
+  }, []);
 
-    if (!initialized) {
-        return (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                <Spin size="large" />
-            </div>
-        );
-    }
-
+  if (!initialized) {
     return (
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/micro" element={<Dictaphone />} />
-            <Route path="/echo" element={<Echo />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/history" element={<History />} />
-        </Routes>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Spin size="large" />
+      </div>
     );
+  }
+
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/micro" element={<Dictaphone />} />
+      <Route path="/demo/echo" element={<EchoDemo />} />
+      <Route path="/demo/navigation" element={<NavigationDemo />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/history" element={<History />} />
+    </Routes>
+  );
 };
 
 const AppWrapper = () => (
-    <Router>
-        <App />
-    </Router>
+  <Router>
+    <App />
+  </Router>
 );
 
 export default AppWrapper;

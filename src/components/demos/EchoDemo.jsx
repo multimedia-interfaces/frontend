@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useReducer } from "react";
-import useSpeechToCommand, { SpeechToCommandStatus } from "../hooks/use-speech-to-command";
-import useTextToSpeech, { TextToSpeechStatus } from "../hooks/use-text-to-speech";
+import useSpeechToCommand, { SpeechToCommandStatus } from "../../hooks/speech/use-speech-to-command";
+import useTextToSpeech, { TextToSpeechStatus } from "../../hooks/speech/use-text-to-speech";
 
 class Action {}
 
@@ -61,7 +61,7 @@ function reducer(state, action) {
   return state.on(action);
 }
 
-const Echo = () => {
+const EchoDemo = () => {
   const [state, dispatch] = useReducer(reducer, new WaitingForInputState());
   
   const commands = useMemo(() => (['simple', 'with :a :b']), [])
@@ -112,4 +112,4 @@ const Echo = () => {
     }
   }
 };
-export default Echo;
+export default EchoDemo;

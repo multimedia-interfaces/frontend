@@ -23,7 +23,7 @@ export default function useSpeechToCommand(commands, listen) {
         command,
         callback: (...args) => {
           setStatus(SpeechToCommandStatus.FINISHED);
-          setResult({ command, parameters: args.slice(0, -1) });
+          setResult({ command: args[args.length - 1].command, parameters: args.slice(0, -1) });
         },
       })),
     [commands]
