@@ -15,8 +15,8 @@ const Paths = {
 const Commands = {
   [Pages.TAXI_ORDER]: [
     "(I) (would like to) book (a) taxi",
-    "can I order a taxi",
-    "(I) need a taxi",
+    "can I order (a) taxi",
+    "(I) need (a) taxi",
   ],
   [Pages.PROFILE]: [
     "(I) (would like to) see my profile",

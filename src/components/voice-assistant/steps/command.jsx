@@ -1,7 +1,16 @@
-import { useCallback } from "react";
-import useVoiceAssistantCommandStep from "../../../hooks/voice-assistant/steps/command";
+import { useCallback, useEffect } from "react";
+import useVoiceAssistantCommandStep, {
+  VoiceAssistantCommandStepStatus,
+} from "../../../hooks/voice-assistant/steps/command";
+import VoiceAssistantStatus from "../constants/status";
 
-const VoiceAssistantCommandStep = ({ run, step, onTransition, context }) => {
+const VoiceAssistantCommandStep = ({
+  run,
+  step,
+  onTransition,
+  context,
+  onStatusChange,
+}) => {
   const validateParameters = useCallback(
     (command, parameters) => step.validateParameters(command, parameters),
     [step]
@@ -14,7 +23,7 @@ const VoiceAssistantCommandStep = ({ run, step, onTransition, context }) => {
     [step, onTransition, context]
   );
 
-  useVoiceAssistantCommandStep({
+  const [status] = useVoiceAssistantCommandStep({
     run,
     commands: step.commands,
     validateParameters,
@@ -23,6 +32,21 @@ const VoiceAssistantCommandStep = ({ run, step, onTransition, context }) => {
     commandNotRecognizedErrorFormulation:
       step.commandNotRecognizedErrorFormulation,
   });
+
+  useEffect(() => {
+    switch (status) {
+      case VoiceAssistantCommandStepStatus.ASKING_QUESTION:
+      case VoiceAssistantCommandStepStatus.DESCRIBING_ERROR:
+        onStatusChange(VoiceAssistantStatus.SPEAKING);
+        break;
+      case VoiceAssistantCommandStepStatus.LISTENING:
+        onStatusChange(VoiceAssistantStatus.LISTENING);
+        break;
+      default:
+        onStatusChange(VoiceAssistantStatus.IDLE);
+        break;
+    }
+  }, [status, onStatusChange]);
 
   return <></>;
 };
