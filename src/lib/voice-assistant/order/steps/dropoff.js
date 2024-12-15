@@ -1,5 +1,6 @@
 import AbstractVoiceAssistantCommandStep from "../../abstract/steps/command";
 import OrderTaxiVoiceAssistantConfirmationStep from "./confirmation";
+import OrderTaxiVoiceAssistantCarCategoryStep from "./car_category";
 
 export default class OrderTaxiVoiceAssistantDropoffStep extends AbstractVoiceAssistantCommandStep {
   constructor(fromRepeat) {
@@ -17,7 +18,6 @@ export default class OrderTaxiVoiceAssistantDropoffStep extends AbstractVoiceAss
 
     return this.fromConfirmation
       ? new OrderTaxiVoiceAssistantConfirmationStep()
-      // TODO change to next steps
-      : new OrderTaxiVoiceAssistantConfirmationStep();
+      : new OrderTaxiVoiceAssistantCarCategoryStep();
   }
 }

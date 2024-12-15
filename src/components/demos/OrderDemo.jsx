@@ -13,10 +13,12 @@ const OrderDemo = () => {
   const [pickup, setPickup] = useState();
   const [dropoff, setDropoff] = useState();
   const [confirmed, setConfirmed] = useState();
+  const [carCategory, setCarCategory] = useState();
+  const [additionalServices, setAdditionalServices] = useState();
 
   const context = useMemo(
-    () => ({ setPickup, setDropoff, setConfirmed }),
-    [setPickup, setDropoff, setConfirmed]
+    () => ({ setPickup, setDropoff, setConfirmed, setCarCategory, setAdditionalServices }),
+    [setPickup, setDropoff, setConfirmed, setCarCategory, setAdditionalServices]
   );
 
   const [status, setStatus] = useState(VoiceAssistantStatus.IDLE);
@@ -32,6 +34,8 @@ const OrderDemo = () => {
       <p>Status: {status}</p>
       <p>Pickup: {pickup}</p>
       <p>Destination: {dropoff}</p>
+      <p>Cat category: {carCategory}</p>
+      <p>Additional services: {additionalServices}</p>
       <p>Confirmed: {confirmed ? "Yes" : "No"}</p>
     </>
   ) : (

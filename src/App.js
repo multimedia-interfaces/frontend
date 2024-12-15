@@ -81,7 +81,7 @@ const AppWrapper = () => (
             <App/>
         </Router>
         <div style={{width: '40vw', height: '30vh', position: 'absolute', right: 0, bottom: 0}}>
-            <Mascot/>
+            {/*<Mascot/>*/}
         </div>
     </>
 );

@@ -25,7 +25,7 @@ const Commands = {
   ],
   [Pages.RIDES_HISTORY]: [
     "(I) (would like to) see my (previous) rides",
-    "show (me) (my) (previuos) rides",
+    "show (me) (my) (previous) rides",
   ],
 };
 
