@@ -14,17 +14,13 @@ const { Option } = Select;
 
 const Home = () => {
     const { state, dispatch } = useStore();
-    const { form, profile } = state;
+    const { form, profile, isConfirm } = state;
 
     const [callTaxiId, setCallTaxiId] = useState(null);
     const [loading, setLoading] = useState(false);
     const [isOnRoad, setIsOnRoad] = useState(false);
     const [error, setError] = useState(null);
 
-    const initializeUserData = () => {
-        dispatch(setFormField('passengerPhone', profile.phone));
-        dispatch(setFormField('passengerName', profile.name))
-    }
     useEffect(() => {
         const getCallTaxiId = async () => {
             try {
@@ -35,9 +31,14 @@ const Home = () => {
             }
         };
 
-        initializeUserData();
         getCallTaxiId();
     }, []);
+
+    useEffect(() => {
+        if (isConfirm) {
+            onFinish();
+        }
+    }, [isConfirm]);
 
     if (!profile.phone) {
         return <div>Loading...</div>;
@@ -97,7 +98,6 @@ const Home = () => {
             await postTaxiCall(callTaxiId);
 
             dispatch(resetForm());
-            initializeUserData();
             setIsOnRoad(true);
             setTimeout(() => setIsOnRoad(false), 4000);
         } catch (err) {
@@ -155,7 +155,6 @@ const Home = () => {
                             onChange={(checkedValues) => dispatch(setFormField('services', checkedValues))}
                         >
                             <Checkbox value="animal">Traveling with pet</Checkbox>
-                            <Checkbox value="big-trunk">Large luggage</Checkbox>
                             <Checkbox value="child-seat">Child seat</Checkbox>
                         </Checkbox.Group>
                     </Form.Item>

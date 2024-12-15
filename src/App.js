@@ -84,8 +84,9 @@ const AppWrapper = () => (
         <Router>
             <App/>
         </Router>
-        <div style={{width: '40vw', height: '30vh', position: 'absolute', right: 0, bottom: 0}}>
-            {/*<Mascot/>*/}
+        <div style={{width: '20vw', height: '60vh', position: 'absolute', right: 0, bottom: 0}}>
+            <OrderDemo />
+            <Mascot/>
         </div>
     </StoreProvider>
 );

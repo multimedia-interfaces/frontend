@@ -14,6 +14,7 @@ export const initialState = {
         passengerName: '',
         passengerPhone: '',
     },
+    isConfirm: false,
 };
 
 export const StoreContext = createContext();

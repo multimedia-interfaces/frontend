@@ -1,4 +1,4 @@
-import {RESET_FORM, SET_FORM_FIELD, SET_PROFILE} from "./actions";
+import {CONFIRM_FORM, RESET_FORM, SET_FORM_FIELD, SET_PROFILE} from "./actions";
 import {initialState} from "./provider";
 
 export function reducer(state, action) {
@@ -10,6 +10,11 @@ export function reducer(state, action) {
                     ...state.profile,
                     ...action.payload,
                 },
+                form: {
+                    ...state.form,
+                    passengerName: action.payload.name,
+                    passengerPhone: action.payload.phone,
+                }
             };
         case SET_FORM_FIELD:
             return {
@@ -22,7 +27,17 @@ export function reducer(state, action) {
         case RESET_FORM:
             return {
                 ...state,
-                form: initialState.form,
+                form: {
+                    ...initialState.form,
+                    passengerName: state.profile.name,
+                    passengerPhone: state.profile.phone,
+                },
+                isConfirm: false,
+            };
+        case CONFIRM_FORM:
+            return {
+                ...state,
+                isConfirm: true,
             };
         default:
             throw new Error(`Unknown action type: ${action.type}`);
