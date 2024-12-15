@@ -18,10 +18,14 @@ import NavigationDemo from "./components/demos/NavigationDemo";
 import OrderDemo from "./components/demos/OrderDemo";
 import Mascot from "./components/Mascot";
 import {fetchProfile} from "./api/profile";
+import {StoreProvider} from "./store/provider";
+import {SET_PROFILE} from "./store/actions";
+import {useStore} from "./store/hook";
 
 const App = () => {
   const [initialized, setInitialized] = useState(false);
-  const [profile, setProfile] = useState({ name: '', phone: '', email: '' });
+  const { state, dispatch } = useStore();
+  const { profile } = state;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +36,7 @@ const App = () => {
         const getProfile = async () => {
           try {
               const data = await fetchProfile();
-              setProfile(data);
+              dispatch({ type: SET_PROFILE, payload: data });
           } catch (error) {
               localStorage.removeItem('authToken');
               navigate('/signup');
@@ -76,14 +80,14 @@ const App = () => {
 };
 
 const AppWrapper = () => (
-    <>
+    <StoreProvider>
         <Router>
             <App/>
         </Router>
         <div style={{width: '40vw', height: '30vh', position: 'absolute', right: 0, bottom: 0}}>
             {/*<Mascot/>*/}
         </div>
-    </>
+    </StoreProvider>
 );
 
 export default AppWrapper;
