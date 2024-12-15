@@ -1,5 +1,5 @@
 // src/App.js
-import { Spin } from "antd";
+import {message, Spin} from "antd";
 import React, { useEffect, useState } from "react";
 import {
   Route,
@@ -16,16 +16,31 @@ import SignUp from "./components/SignUp";
 import EchoDemo from "./components/demos/EchoDemo";
 import NavigationDemo from "./components/demos/NavigationDemo";
 import OrderDemo from "./components/demos/OrderDemo";
+import {fetchProfile} from "./api/profile";
 
 const App = () => {
   const [initialized, setInitialized] = useState(false);
+  const [profile, setProfile] = useState({ name: '', phone: '', email: '' });
   const navigate = useNavigate();
 
   useEffect(() => {
-    // const token = localStorage.getItem('authToken');
-    // if (!token) {
-    //     navigate('/signup');
-    // }
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        navigate('/signup');
+      } else {
+        const getProfile = async () => {
+          try {
+              const data = await fetchProfile();
+              setProfile(data);
+          } catch (error) {
+              localStorage.removeItem('authToken');
+              navigate('/signup');
+              message.error('Failed to fetch profile data', error);
+              console.log('Failed to fetch profile data', error);
+            }
+          };
+      getProfile();
+    }
     setInitialized(true);
   }, []);
 
@@ -46,14 +61,14 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home profile={profile}/>} />
       <Route path="/micro" element={<Dictaphone />} />
       <Route path="/demo/echo" element={<EchoDemo />} />
       <Route path="/demo/navigation" element={<NavigationDemo />} />
       <Route path="/demo/order" element={<OrderDemo />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/signin" element={<SignIn />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={<Profile profile={profile}/>} />
       <Route path="/history" element={<History />} />
     </Routes>
   );
