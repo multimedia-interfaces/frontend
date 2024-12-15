@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import {useCallback, useMemo, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import NavigationVoiceAssistant from "../../lib/voice-assistant/navigation";
 import VoiceAssistant from "../voice-assistant";

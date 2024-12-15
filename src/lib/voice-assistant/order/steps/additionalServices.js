@@ -24,7 +24,7 @@ export default class OrderTaxiVoiceAssistantAdditionalServicesStep extends Abstr
     if (command === additionalServices.animal || param?.includes('pet') || param?.includes('cat') || param?.includes('dog')) {
       addOns.push('animal');
     }
-    if (command === additionalServices.childSeat || param?.includes('son') || param?.includes('daughter')) {
+    if (command === additionalServices.childSeat || param?.includes('son') || param?.includes('daughter') || param?.includes('child')) {
       addOns.push('childSeat');
     }
 

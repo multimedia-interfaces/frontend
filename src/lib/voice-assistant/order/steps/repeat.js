@@ -1,6 +1,7 @@
 import AbstractVoiceAssistantCommandStep from "../../abstract/steps/command";
 import OrderTaxiVoiceAssistantDropoffStep from "./dropoff";
 import OrderTaxiVoiceAssistantAdditionalServicesStep from "./additionalServices";
+import OrderTaxiVoiceAssistantCarCategoryStep from "./car_category";
 import OrderTaxiVoiceAssistantPickupStep from "./pickup";
 
 const Fields = {
@@ -13,8 +14,8 @@ const Fields = {
 const Commands = {
   [Fields.PICKUP]: ["Pick up (*)", "Starting (*)"],
   [Fields.DROPOFF]: ["Drop off (*)", "Destination (*)"],
-  [Fields.CAR_CATEGORY]: ["I prefer (*)", "I want category (*)"],
-  [Fields.ADDITIONAL_SERVICES]: ["I prefer (*)", "I want category (*)"],
+  [Fields.CAR_CATEGORY]: ["category (*)"],
+  [Fields.ADDITIONAL_SERVICES]: ["Additional Services (*)", "pet (*)", "child (*)"],
 };
 
 const CommandToFieldMap = Object.fromEntries(
@@ -41,7 +42,7 @@ export default class OrderTaxiVoiceAssistantRepeatStep extends AbstractVoiceAssi
       case Fields.DROPOFF:
         return new OrderTaxiVoiceAssistantDropoffStep(true);
       case Fields.CAR_CATEGORY:
-        return new OrderTaxiVoiceAssistantDropoffStep(true);
+        return new OrderTaxiVoiceAssistantCarCategoryStep(true);
       case Fields.ADDITIONAL_SERVICES:
         return new OrderTaxiVoiceAssistantAdditionalServicesStep(true);
       default:
