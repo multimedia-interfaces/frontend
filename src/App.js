@@ -16,6 +16,7 @@ import SignUp from "./components/SignUp";
 import EchoDemo from "./components/demos/EchoDemo";
 import NavigationDemo from "./components/demos/NavigationDemo";
 import OrderDemo from "./components/demos/OrderDemo";
+import Mascot from "./components/Mascot";
 import {fetchProfile} from "./api/profile";
 
 const App = () => {
@@ -75,9 +76,14 @@ const App = () => {
 };
 
 const AppWrapper = () => (
-  <Router>
-    <App />
-  </Router>
+    <>
+        <Router>
+            <App/>
+        </Router>
+        <div style={{width: '40vw', height: '30vh', position: 'absolute', right: 0, bottom: 0}}>
+            <Mascot/>
+        </div>
+    </>
 );
 
 export default AppWrapper;
