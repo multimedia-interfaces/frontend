@@ -3,11 +3,11 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 
 const Dictaphone = () => {
     const {
-        transcript,
+        finalTranscript,
         listening,
         resetTranscript,
-        browserSupportsSpeechRecognition
-    } = useSpeechRecognition();
+        browserSupportsSpeechRecognition,
+    } = useSpeechRecognition({commands: [{command: 'apple', callback: (...args) => console.dir({args})},{command: ['banana :count', 'orange'], callback: (...args) => console.dir({args})} ]});
 
     if (!browserSupportsSpeechRecognition) {
         return <span>Browser doesn't support speech recognition.</span>;
@@ -19,7 +19,7 @@ const Dictaphone = () => {
             <button onClick={SpeechRecognition.startListening}>Start</button>
             <button onClick={SpeechRecognition.stopListening}>Stop</button>
             <button onClick={resetTranscript}>Reset</button>
-            <p>{transcript}</p>
+            <p>{finalTranscript}</p>
         </div>
     );
 };
