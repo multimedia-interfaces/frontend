@@ -14,18 +14,30 @@ const NavigationDemo = () => {
   const navigate = useNavigate();
   const context = useMemo(() => ({ navigate }), [navigate]);
 
-  const [status, setStatus] = useState(VoiceAssistantStatus.IDLE);
+
+  const handleStatusChange = (status) => {
+    switch (status) {
+      case VoiceAssistantStatus.SPEAKING:
+        window.playSpeaking();
+        break;
+      case VoiceAssistantStatus.LISTENING:
+        window.playLisening();
+        break;
+      case VoiceAssistantStatus.IDLE:
+        window.playIdle();
+        break;
+      default:
+        break;
+    }
+  };
 
   return run ? (
-    <>
       <VoiceAssistant
         run={run}
         assistent={assistent}
         context={context}
-        onStatusChange={setStatus}
+        onStatusChange={handleStatusChange}
       />
-      {status}
-    </>
   ) : (
     <button onClick={onClick}>Start</button>
   );

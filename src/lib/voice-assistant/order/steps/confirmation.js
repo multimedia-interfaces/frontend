@@ -1,5 +1,6 @@
 import AbstractVoiceAssistantCommandStep from "../../abstract/steps/command";
 import OrderTaxiVoiceAssistantRepeatStep from "./repeat";
+import NavigationVoiceAssistantContinueStep from "../../navigation/steps/continue";
 
 const Commands = {
   YES: "Yes (*)",
@@ -18,7 +19,7 @@ export default class OrderTaxiVoiceAssistantConfirmationStep extends AbstractVoi
   transition({ setConfirmed }, { command }) {
     if (command === Commands.YES) {
       setConfirmed(true);
-      return null;
+      return new NavigationVoiceAssistantContinueStep();
     }
 
     return new OrderTaxiVoiceAssistantRepeatStep();

@@ -1,14 +1,14 @@
-import {Button} from "antd";
-import {AudioOutlined} from "@ant-design/icons";
 import React, { useCallback, useMemo, useState } from "react";
 import OrderTaxiVoiceAssistant from "../../lib/voice-assistant/order";
 import VoiceAssistant from "../voice-assistant";
 import VoiceAssistantStatus from "../voice-assistant/constants/status";
 import {useStore} from "../../store/hook";
 import {setFormField, confirmForm} from "../../store/actions";
+import {useNavigate} from "react-router-dom";
 
 const OrderDemo = () => {
-  const [run, setRun] = useState(false);
+    const navigate = useNavigate();
+    const [run, setRun] = useState(false);
 
   const onClick = useCallback(() => setRun(true), []);
 
@@ -23,8 +23,8 @@ const OrderDemo = () => {
   const setConfirmed = useCallback(() => dispatch(confirmForm()), [dispatch]);
 
   const context = useMemo(
-    () => ({ setPickup, setDropoff, setConfirmed, setCarCategory, setAdditionalServices }),
-    [setPickup, setDropoff, setConfirmed, setCarCategory, setAdditionalServices]
+    () => ({ setPickup, setDropoff, setConfirmed, setCarCategory, setAdditionalServices, navigate, setRun }),
+    [setPickup, setDropoff, setConfirmed, setCarCategory, setAdditionalServices, navigate, setRun]
   );
 
   const handleStatusChange = (status) => {
@@ -37,7 +37,6 @@ const OrderDemo = () => {
                 break;
           case VoiceAssistantStatus.IDLE:
                 window.playIdle();
-                // window.playDemonstration();
                 break;
             default:
                 break;
@@ -52,13 +51,13 @@ const OrderDemo = () => {
         onStatusChange={handleStatusChange}
       />
   ) : (
-      <Button
-          type="primary"
-          shape="circle"
-          icon={<AudioOutlined />}
-          onClick={onClick}
-      />
-
+      // <Button
+      //     type="primary"
+      //     shape="circle"
+      //     icon={<AudioOutlined />}
+      //     onClick={onClick}
+      // />
+      <button onClick={onClick}>Start</button>
   );
 };
 

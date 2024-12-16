@@ -1,18 +1,19 @@
 // src/components/Home.js
 import React, { useEffect, useState } from 'react';
 import { Typography, Form, Input, Button, Row, Col, Select, Checkbox, message, Card, Alert } from 'antd';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Header from "./Header";
 import { initiateTaxiCall, updateTaxiCall, postTaxiCall } from '../api/orderTaxi';
 import { Spin } from 'antd';
-import taxiVideo from '../taxi_video.mp4';
-import {setFormField, resetForm} from "../store/actions";
+import taxiVideo from '../components/assistant/taxi_video.mp4';
+import {setFormField, resetForm, confirmForm} from "../store/actions";
 import {useStore} from "../store/hook";
 
 const { Title } = Typography;
 const { Option } = Select;
 
-const Home = () => {
+const Order = () => {
+    const navigate = useNavigate();
     const { state, dispatch } = useStore();
     const { form, profile, isConfirm } = state;
 
@@ -99,7 +100,12 @@ const Home = () => {
 
             dispatch(resetForm());
             setIsOnRoad(true);
-            setTimeout(() => setIsOnRoad(false), 4000);
+            window.playDemonstration();
+            setTimeout(() => {
+                setIsOnRoad(false);
+                window.playIdle();
+                navigate('/');
+            }, 4000);
         } catch (err) {
             setError(err.message);
         } finally {
@@ -120,7 +126,7 @@ const Home = () => {
             : <>
                 <Title level={2} style={{ textAlign: 'center' }}>Order Taxi</Title>
                 {error && <Alert message={error} type="error" showIcon style={{ marginBottom: '20px' }} />}
-                <Form layout="vertical" onFinish={onFinish}>
+                <Form layout="vertical" onFinish={() => dispatch(confirmForm())}>
                     <Form.Item label="Pickup Location" required>
                         <Input
                             placeholder="Pickup Location"
@@ -204,4 +210,4 @@ const Home = () => {
 };
 
 
-export default Home;
+export default Order;
