@@ -1,4 +1,6 @@
 import AbstractVoiceAssistantCommandStep from "../../abstract/steps/command";
+import OrderTaxiVoiceAssistantPickupStep from "../../order/steps/pickup";
+import NavigationVoiceAssistantContinueStep from "./continue";
 
 const Pages = {
   TAXI_ORDER: "TAXI_ORDER",
@@ -45,8 +47,12 @@ export default class NavigationVoiceAssistantNavigateStep extends AbstractVoiceA
   }
 
   transition({ navigate }, { command }) {
+    const path = CommandToPageMap[command];
     navigate(Paths[CommandToPageMap[command]]);
 
-    return null;
+    if (path === Pages.TAXI_ORDER) {
+      return new OrderTaxiVoiceAssistantPickupStep();
+    }
+    return new NavigationVoiceAssistantContinueStep();
   }
 }
