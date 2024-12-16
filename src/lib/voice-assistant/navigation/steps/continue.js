@@ -8,6 +8,7 @@ const Commands = {
 
 export default class NavigationVoiceAssistantContinueStep extends AbstractVoiceAssistantCommandStep {
     constructor() {
+
         super(
             "Anything else?",
             "Please, repeat",

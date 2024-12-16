@@ -6,6 +6,7 @@ const additionalServices = {
   animal: '(I need) pet friendly car (*)',
   childSeat: '(I need) child seat (*)',
   both: '(I need) place for dog and baby seat (*)',
+  none: 'No (*)',
 };
 
 export default class OrderTaxiVoiceAssistantAdditionalServicesStep extends AbstractVoiceAssistantCommandStep {
@@ -19,6 +20,11 @@ export default class OrderTaxiVoiceAssistantAdditionalServicesStep extends Abstr
 
   transition({ setAdditionalServices }, { command, parameters: [param] }) {
     console.log('AdditionalServicesStep', {command, param});
+
+    if (command === additionalServices.none) {
+      setAdditionalServices([]);
+      return new OrderTaxiVoiceAssistantConfirmationStep();
+    }
 
     const addOns = []
     if (command === additionalServices.animal || param?.includes('pet') || param?.includes('at') || param?.includes('dog')) {
