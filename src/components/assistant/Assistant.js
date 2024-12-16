@@ -16,7 +16,7 @@ export const Assistant = () => {
                 alignItems: "center",
                 height: "10vh",
             }}>
-                <OrderDemo/>
+                {isAssistantAvailable && <OrderDemo/>}
             </div>
             <div style={{
                 display: "flex",
@@ -34,7 +34,7 @@ export const Assistant = () => {
                 justifyContent: "center",
                 alignItems: "center",
             }}>
-                {<OrderDemo/>}
+                {isAssistantAvailable && <OrderDemo/>}
             </div>
             {isAssistantAvailable && <Mascot/>}
         </div>
