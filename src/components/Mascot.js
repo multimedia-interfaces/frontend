@@ -4,7 +4,7 @@ import { useGLTF, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 
 function Mascot() {
-    const { scene, animations } = useGLTF('./mascot_v.1.2.glb'); // Шлях до вашої моделі
+    const { scene, animations } = useGLTF('./mascot_v.1.2.glb');
     const mixer = useRef();
     const actions = useRef({});
 
