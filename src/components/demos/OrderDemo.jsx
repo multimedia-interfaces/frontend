@@ -28,6 +28,7 @@ const OrderDemo = () => {
   );
 
   const handleStatusChange = (status) => {
+      if (window.isMaskotDemonstration) return null;
       switch (status) {
             case VoiceAssistantStatus.SPEAKING:
                 window.playSpeaking();

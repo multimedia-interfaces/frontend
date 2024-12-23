@@ -104,8 +104,9 @@ const Order = () => {
             setTimeout(() => {
                 setIsOnRoad(false);
                 window.playIdle();
+                window.isMaskotDemonstration = false;
                 navigate('/');
-            }, 4000);
+            }, 7000);
         } catch (err) {
             setError(err.message);
         } finally {

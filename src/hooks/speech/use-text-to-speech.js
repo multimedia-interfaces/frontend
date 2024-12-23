@@ -46,7 +46,16 @@ export default function useTextToSpeech(text, play) {
   useEffect(() => {
     if (speechStatus === "stopped") {
       if (status === TextToSpeechStatus.READY && play) {
-        start();
+        console.log('<>start speaking', window.isMaskotDemonstration);
+        if (window.isMaskotDemonstration) {
+        //   setTimeout(() => {
+        //     start();
+        //     console.log('<>start speaking with delay');
+        //
+        //   }, 7000);
+        } else {
+          start();
+        }
       } else if (status === TextToSpeechStatus.IN_PROGRESS) {
         setStatus(TextToSpeechStatus.FINISHED);
       }

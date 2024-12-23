@@ -19,6 +19,7 @@ export default class OrderTaxiVoiceAssistantConfirmationStep extends AbstractVoi
   transition({ setConfirmed }, { command }) {
     if (command === Commands.YES) {
       setConfirmed(true);
+      window.isMaskotDemonstration = true;
       return new NavigationVoiceAssistantContinueStep();
     }
 
